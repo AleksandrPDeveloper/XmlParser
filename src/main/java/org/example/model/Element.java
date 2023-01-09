@@ -6,16 +6,9 @@ import java.util.regex.Pattern;
 public interface Element {
       void setText(String name);
       String getText();
+      boolean isRoot();
       void tegClose(Pattern pattern, String name, Stack<Element> stack);
-      static void tegOpen(String tag, boolean isFile, Stack<Element> stack){
-
-          Element element = switch (tag) {
-              case Child.tag -> new Child(isFile);
-              case Children.tag -> new Children();
-              case Name.tag -> new Name();
-              case Node.tag -> new Node(isFile);
-              default -> null;
-          };
+      static void tegOpen(Element element, Stack<Element> stack){
           stack.add(element);
       }
 }

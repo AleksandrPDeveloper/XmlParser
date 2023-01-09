@@ -4,8 +4,10 @@ import java.util.Stack;
 import java.util.regex.Pattern;
 
 public class Children implements Element{
-    static final String tag = "children";
-
+    @Override
+    public boolean isRoot() {
+        return false;
+    }
     @Override
     public String getText() {
         return "";

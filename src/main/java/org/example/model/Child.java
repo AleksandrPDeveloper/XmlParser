@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Child implements Element{
-    static final String tag = "child";
     private final boolean isFile;
     private String text;
 
@@ -14,10 +13,10 @@ public class Child implements Element{
         this.isFile = isFile;
     }
 
-    public boolean isFile() {
-        return isFile;
+    @Override
+    public boolean isRoot() {
+        return false;
     }
-
     @Override
     public String getText() {
         return text;
@@ -30,7 +29,7 @@ public class Child implements Element{
     public void tegClose(Pattern pattern, String name, Stack<Element> stack) {
         if (checkCondition(pattern)){
             String path = stack.stream()
-                    .skip(1)
+                    .filter(a ->!a.isRoot())
                     .filter(a -> !a.getText().isEmpty())
                     .flatMap(a-> Stream.of(a.getText()))
                     .collect(Collectors.joining("/"));

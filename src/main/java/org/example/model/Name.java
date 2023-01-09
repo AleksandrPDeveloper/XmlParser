@@ -4,9 +4,11 @@ import java.util.Stack;
 import java.util.regex.Pattern;
 
 public class Name implements Element{
-    static final String tag = "name";
     private String text;
-
+    @Override
+    public boolean isRoot() {
+        return false;
+    }
     @Override
     public void setText(String text) {
         this.text = text;

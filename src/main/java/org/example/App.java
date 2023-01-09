@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 public class App {
     private static final Options options = new Options();
-
     public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException {
         setOptions();
 
@@ -39,7 +38,11 @@ public class App {
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser saxParser = factory.newSAXParser();
             Parser xmlParser = new Parser(pattern);
-            saxParser.parse(filePath, xmlParser);
+            try{
+                saxParser.parse(filePath, xmlParser);
+            }catch (SAXException e){
+                System.out.println(e.getMessage());
+            }
 
         } catch (ParseException e) {
             System.out.println(e.getMessage());
@@ -47,7 +50,6 @@ public class App {
             System.exit(1);
         }
     }
-
     private static Pattern convertRegEx(String textSearch, String option){
         String patternText = "(?s).*";
 
@@ -101,6 +103,5 @@ public class App {
         options.addOption(optionFile);
         options.addOption(optionSearch);
         options.addOption(optionSearchExtend);
-
     }
 }
